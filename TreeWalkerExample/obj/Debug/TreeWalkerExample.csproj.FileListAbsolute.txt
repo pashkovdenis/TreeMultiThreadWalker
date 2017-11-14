@@ -1,0 +1,7 @@
+C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\bin\Debug\TreeWalkerExample.exe.config
+C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\bin\Debug\TreeWalkerExample.exe
+C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\bin\Debug\TreeWalkerExample.pdb
+C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debug\TreeWalkerExample.csprojResolveAssemblyReference.cache
+C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debug\TreeWalkerExample.csproj.CoreCompileInputs.cache
+C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debug\TreeWalkerExample.exe
+C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debug\TreeWalkerExample.pdb
