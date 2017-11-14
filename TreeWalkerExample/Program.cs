@@ -29,33 +29,54 @@ namespace TreeWalkerExample
               
                 Visited = 0;
                 total = 0;
-                Console.Clear(); 
+                Console.Clear();
+                RunTest1();
+                RunTest2(); 
 
-
-                Root = new TreeBranch<string>();
-                Root.AddChild(BuildTree(new TreeBranch<string>()));
-               
-                Console.WriteLine("Starting Walking Tree component");
-                var start = DateTime.Now;
-
-                var walker = new TreeRunner(new Action<TreeComponent<string>>((TreeComponent<string> cs) =>
-                {
-                    new TreeVisitor<string>().Visit(cs);
-                    Interlocked.Increment(ref Visited);
-                }
-                ));
-
-                var c = new ConcurrentQueue<TreeComponent<string>>();
-                c.Enqueue(Root);
-              
-                walker.Walk(c);
                  
-
-                Console.WriteLine("Tree Walker Finished " + (DateTime.Now - start).TotalMilliseconds + " / " + Visited);
                 Console.ReadLine();
             }
 
         } 
+
+        static void RunTest1()
+        {
+            Root = new TreeBranch<string>();
+            Root.AddChild(BuildTree(new TreeBranch<string>()));
+
+            Console.WriteLine("Starting Walking Tree component");
+            var start = DateTime.Now;
+
+            var walker = new TreeRunner(new Action<TreeComponent<string>>((TreeComponent<string> cs) =>
+            {
+                new TreeVisitor<string>().Visit(cs);
+                Interlocked.Increment(ref Visited);
+            }
+            ));
+
+            var c = new ConcurrentQueue<TreeComponent<string>>();
+            c.Enqueue(Root);
+            walker.Walk(c);
+            Console.WriteLine("First  Walker Finished " + (DateTime.Now - start).TotalMilliseconds + " / " + Visited);
+
+        }
+
+        static void RunTest2()
+        {
+           
+            Console.WriteLine("Starting Walking Tree component");
+            var start = DateTime.Now;
+
+            var walker = new TreeWalkerUsingBackgroundWoker(new Action<TreeComponent<string>>((TreeComponent<string> cs) =>
+            {
+                new TreeVisitor<string>().Visit(cs); 
+            }
+            ));
+
+            var c = new ConcurrentQueue<TreeComponent<string>>();
+            c.Enqueue(Root);
+            walker.Walk(c);
+        }
 
         static TreeComponent<string> BuildTree( TreeComponent<string> c)
         {
