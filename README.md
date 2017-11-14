@@ -5,4 +5,4 @@ C#  Example of using Thread pool/Background Worker  to walk over tree data struc
 1st example using Thread Pool  
 2nd example using Background worker  
 
-as result using Background worker gives a litle better perfomance. 
+as a result using Background workers gives a litle better perfomance. 
