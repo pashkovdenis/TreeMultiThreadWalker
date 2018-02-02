@@ -15,11 +15,11 @@ namespace TreeWalkerExample
 
         protected Action<TreeComponent<string>> _action;
         public TreeRunner(Action<TreeComponent<string>> action) => _action = action;
-         
-        public void Walk(ConcurrentQueue<TreeComponent<string>> queue, int count = 4)
+
+        public void Walk(ConcurrentQueue<TreeComponent<string>> queue, int count = 1)
         {
 
-           
+
 
             using (var countDown = new CountdownEvent(count))
             {
@@ -29,32 +29,32 @@ namespace TreeWalkerExample
                     ThreadPool.QueueUserWorkItem((object o) =>
                     {
                         b.SignalAndWait();
-                        Console.WriteLine($"THread start {o}");
+
                         try
-                        { 
+                        {
                             while (queue.Count > 0)
                             {
 
                                 if (queue.TryDequeue(out TreeComponent<string> node))
                                 {
-                                        // Do Work 
-                                        _action.Invoke(node);
-                                        foreach (var child in node.GetChilds())
-                                            queue.Enqueue(child); 
+                                  
+                                    _action.Invoke(node);
+                                    foreach (var child in node.GetChilds())
+                                        queue.Enqueue(child);
 
                                 }
-                            } 
+                            }
 
                         }
                         catch (Exception)
-                        { 
+                        {
                         }
                         finally
                         {
-                            Console.WriteLine($"THread END  {o} final  ");
+
                             b.SignalAndWait();
                             countDown.Signal();
-                        } 
+                        }
 
                     }, i);
 

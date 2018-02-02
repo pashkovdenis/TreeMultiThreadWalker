@@ -14,7 +14,12 @@ namespace TreeWalkerExample.Models
         public bool Visited { set; get; }
 
         public abstract void AddChild(TreeComponent<T> child);
-        public HashSet<TreeComponent<T>> GetChilds() => _childNodes;
+        public HashSet<TreeComponent<T>> GetChilds()
+        {
+
+           return  _childNodes;
+
+        }
         public virtual void AcceptVisitor(Models.ITreeVisitor<T> visitor) => visitor.Visit(this);
     }
 }

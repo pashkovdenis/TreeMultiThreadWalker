@@ -19,7 +19,7 @@ namespace TreeWalkerExample
             Console.WriteLine("MultiThread Walker Example"); 
 
           
-            //ThreadPool.SetMinThreads(2, 4); 
+           ThreadPool.SetMinThreads(2, 8); 
             ThreadPool.GetAvailableThreads(out int wokers, out int completion); 
 
          
@@ -44,7 +44,7 @@ namespace TreeWalkerExample
             Root = new TreeBranch<string>();
             Root.AddChild(BuildTree(new TreeBranch<string>()));
 
-            Console.WriteLine("Starting Walking Tree component");
+           
             var start = DateTime.Now;
 
             var walker = new TreeRunner(new Action<TreeComponent<string>>((TreeComponent<string> cs) =>
@@ -64,7 +64,7 @@ namespace TreeWalkerExample
         static void RunTest2()
         {
            
-            Console.WriteLine("Starting Walking Tree component");
+           
             var start = DateTime.Now;
 
             var walker = new TreeWalkerUsingBackgroundWoker(new Action<TreeComponent<string>>((TreeComponent<string> cs) =>
@@ -75,7 +75,10 @@ namespace TreeWalkerExample
 
             var c = new ConcurrentQueue<TreeComponent<string>>();
             c.Enqueue(Root);
-            walker.Walk(c);
+            walker.Walk(c); 
+
+            walker.Worker_RunWorkerCompleted(); 
+
         }
 
         static TreeComponent<string> BuildTree( TreeComponent<string> c)

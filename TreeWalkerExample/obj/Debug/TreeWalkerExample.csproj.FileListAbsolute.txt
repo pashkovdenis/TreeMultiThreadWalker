@@ -5,3 +5,10 @@ C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debu
 C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debug\TreeWalkerExample.csproj.CoreCompileInputs.cache
 C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debug\TreeWalkerExample.exe
 C:\Users\Denis\Downloads\TreeWalker\TreeWalkerExample\TreeWalkerExample\obj\Debug\TreeWalkerExample.pdb
+C:\Users\pashk\Desktop\TreeMultithreading\TreeWalkerExample\bin\Debug\TreeWalkerExample.exe.config
+C:\Users\pashk\Desktop\TreeMultithreading\TreeWalkerExample\bin\Debug\TreeWalkerExample.exe
+C:\Users\pashk\Desktop\TreeMultithreading\TreeWalkerExample\bin\Debug\TreeWalkerExample.pdb
+C:\Users\pashk\Desktop\TreeMultithreading\TreeWalkerExample\obj\Debug\TreeWalkerExample.csprojResolveAssemblyReference.cache
+C:\Users\pashk\Desktop\TreeMultithreading\TreeWalkerExample\obj\Debug\TreeWalkerExample.csproj.CoreCompileInputs.cache
+C:\Users\pashk\Desktop\TreeMultithreading\TreeWalkerExample\obj\Debug\TreeWalkerExample.exe
+C:\Users\pashk\Desktop\TreeMultithreading\TreeWalkerExample\obj\Debug\TreeWalkerExample.pdb

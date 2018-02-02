@@ -10,59 +10,62 @@ using TreeWalkerExample.Models;
 
 namespace TreeWalkerExample
 {
-    
+
     class TreeWalkerUsingBackgroundWoker
     {
         protected Action<TreeComponent<string>> _action;
         private DateTime start;
-
         public TreeWalkerUsingBackgroundWoker(Action<TreeComponent<string>> action) => _action = action;
         private List<BackgroundWorker> _workers = new List<BackgroundWorker>();
         private ConcurrentQueue<TreeComponent<string>> _q;
         private int _count = 0;
-        private int _visited = 0;  
+        private int _visited = 0;
+        private List<AutoResetEvent> _resets = new List<AutoResetEvent>();
 
-        public void Walk(ConcurrentQueue<TreeComponent<string>> queue, int count = 4)
+
+        public void  Walk(ConcurrentQueue<TreeComponent<string>> queue, int count = 4)
         {
-            _q = queue;
-            _count = count;
-            start = DateTime.Now;
 
-            for (int i = 0; i < count; i++)
-            {
-                var worker = new BackgroundWorker();
-                worker.WorkerSupportsCancellation = true;
+            
+                _q = queue;
+                _count = count;
+                start = DateTime.Now;
+                   
+                for (int i = 0; i < count; i++)
+                {
+                    
+                
+                    var reset = new AutoResetEvent(false);
+                    _resets.Add(reset); 
 
-                worker.DoWork += new DoWorkEventHandler((object sender, DoWorkEventArgs args) => {
 
-                    Console.WriteLine("Starting Worker ");
-
-                    while (_q.Count > 0)
-                    {
-                        if (_q.TryDequeue(out TreeComponent<string> node))
+                    ThreadPool.QueueUserWorkItem((object o) => {
+                         
+                        while (_q.Count > 0)
                         {
-                            _action.Invoke(node);
-                            Interlocked.Increment(ref _visited);
-                            foreach (var child in node.GetChilds())
-                                _q.Enqueue(child);
-                        }
-                    }
-                    Console.WriteLine("End Worker");
-                });
-                worker.RunWorkerAsync();
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                _workers.Add(worker);
-            }
+                            if (_q.TryDequeue(out TreeComponent<string> node))
+                            {
+                                _action.Invoke(node);
+                                Interlocked.Increment(ref _visited);   
+                                foreach (var child in node.GetChilds())
+                                            _q.Enqueue(child); 
+                            }
+                        } 
+                        ((AutoResetEvent)o).Set(); 
+                    },reset); 
+                     
+
+
+                }
+                WaitHandle.WaitAll(_resets.ToArray());
+         
         }
 
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (_count == _workers.Count(w => w.IsBusy == false))
-            {
-                Console.WriteLine("End Task");
-                Console.WriteLine(" " + (DateTime.Now - start).TotalMilliseconds + $" / Visited {_visited}");
-            }
 
+        public void Worker_RunWorkerCompleted()
+        {
+            Console.WriteLine("End Task");
+            Console.WriteLine(" " + (DateTime.Now - start).TotalMilliseconds + $" / Visited {_visited}");
         }
     }
 
